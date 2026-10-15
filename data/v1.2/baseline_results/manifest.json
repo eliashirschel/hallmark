@@ -2,12 +2,11 @@
   "version": "1.0",
   "files": {
     "bibtexupdater_dev_public.json": {
-      "sha256": "ecbd1d8f34acc7cc086e2f30c3dbc9d88e5e5940e27e22df2ecf4937c7f37aa4",
+      "sha256": "f0ab7100ec3c70549fc276fbe6e203763dcc85368c93c9c409508c35fba4719d",
       "baseline": "bibtexupdater",
       "split": "dev_public",
       "num_entries": 1119,
-      "f1_hallucination": 0.8954468802698146,
-      "split_sha256": "8cfb4a95ccac59624e03b07199368e7a61b124f426b661174757e38eacbde4ea"
+      "f1_hallucination": 0.8857644991212653
     },
     "bibtexupdater_raw_dev_public.jsonl": {
       "sha256": "bfa01ad369fe974829002fef0e9296da847efaee8d07556b3ff75eb639009e09"
@@ -16,54 +15,57 @@
       "sha256": "39244a8fcbb8bc1ba08dd64eb7ff6f347e195954f207c6a61309f26080b95348"
     },
     "bibtexupdater_test_public.json": {
-      "sha256": "f4bba4da45c94cf8e0033552e5a2695ff6c0b14008c6e6cd7a649b30f34711f7",
+      "sha256": "ff74ba439610e981347d27ab1123cc516dab703e1a6548653b732318df311eed",
       "baseline": "bibtexupdater",
       "split": "test_public",
       "num_entries": 831,
-      "f1_hallucination": 0.9024630541871921,
-      "split_sha256": "e42ef2cbe2b5550768c191f0526d9c75935adda5fd630dba8724e479975907d1"
+      "f1_hallucination": 0.8902439024390244
     },
     "cascade_db_diagnosis_aggressive_dev_public.json": {
-      "sha256": "0f54d388799fbf499937679ba7e8b779d2fe8e3b05646e7f3933b966b16f3a3a",
+      "sha256": "093030f24a25c9f86dcd0213d8ed4649f289a304a208f2124e54e430d5f01b0b",
       "baseline": "cascade_db_diagnosis",
       "split": "dev_public",
       "num_entries": 1119,
-      "f1_hallucination": 0.9393468118195957
+      "f1_hallucination": 0.9870340356564019,
+      "split_sha256": "8cfb4a95ccac59624e03b07199368e7a61b124f426b661174757e38eacbde4ea"
     },
     "cascade_db_diagnosis_aggressive_stress_test.json": {
-      "sha256": "8e12d13b07e0dd37a8ce0bc9bd1dfe09b8075df0f957a32567be4f527290a4ed",
+      "sha256": "18b1324be7c62f966dc6889b010f7b062b486fd35353488a0d33c4ef0e930e50",
       "baseline": "cascade_db_diagnosis",
       "split": "stress_test",
       "num_entries": 121,
-      "f1_hallucination": 0.9789029535864979
+      "f1_hallucination": 0.9831932773109243
     },
     "cascade_db_diagnosis_aggressive_test_public.json": {
-      "sha256": "f8c2b0cdc4a311a741c9528880de28fea8759cd3dd4bfd1ca715851c3f2595c5",
+      "sha256": "1903b17057edf2b44344bf0af23ab0ecce1e48784e63e001f0b8ac389f7cee27",
       "baseline": "cascade_db_diagnosis",
       "split": "test_public",
       "num_entries": 831,
-      "f1_hallucination": 0.9501845018450185
+      "f1_hallucination": 0.9829545454545454,
+      "split_sha256": "e42ef2cbe2b5550768c191f0526d9c75935adda5fd630dba8724e479975907d1"
     },
     "cascade_db_diagnosis_dev_public.json": {
-      "sha256": "5df803dde0d7fe80413072132677630b09761e9d313370611712ae0a7851747c",
+      "sha256": "d2e1fdd13039c8caa6a7b542d5e42389b20037779913ee06e380ebecba4a1bf6",
       "baseline": "cascade_db_diagnosis",
       "split": "dev_public",
       "num_entries": 1119,
-      "f1_hallucination": 0.946550048590865
+      "f1_hallucination": 0.9849906191369605,
+      "split_sha256": "8cfb4a95ccac59624e03b07199368e7a61b124f426b661174757e38eacbde4ea"
     },
     "cascade_db_diagnosis_stress_test.json": {
-      "sha256": "623222b43e505060ddd7fcf5c209c7961f77395bccc177d0fc09f41f5adfa21c",
+      "sha256": "9d5a3f23888e22809ddf55b7d4270eca0c15fd7d1dfe4422fa28d6ed2ef5f09e",
       "baseline": "cascade_db_diagnosis",
       "split": "stress_test",
       "num_entries": 121,
-      "f1_hallucination": 0.9748743718592965
+      "f1_hallucination": 0.9826086956521739
     },
     "cascade_db_diagnosis_test_public.json": {
-      "sha256": "0b8e28af6ceaa9b327d17bea79a9fd5c7d59d596c7eff966dfcd076485241d77",
+      "sha256": "9ce7194067f33937b6bbbf1ce1303dd7669d5ec3b940044fb7ad06b508e43cd8",
       "baseline": "cascade_db_diagnosis",
       "split": "test_public",
       "num_entries": 831,
-      "f1_hallucination": 0.9571263035921205
+      "f1_hallucination": 0.980561555075594,
+      "split_sha256": "e42ef2cbe2b5550768c191f0526d9c75935adda5fd630dba8724e479975907d1"
     },
     "doi_only_dev_public.json": {
       "sha256": "705ccb12e9c0edeee6f930685bbb139b564413cd8190d564a8afc0859f38875f",
@@ -110,11 +112,12 @@
       "f1_hallucination": 0.8829787234042553
     },
     "llm_agentic_btu_sonnet_4_6_dev_public.json": {
-      "sha256": "0d6912bfe80852ebff13fde66d9c909fac96ff68bcfbfa91f20c2fe67fce97b6",
+      "sha256": "a57cb5f4e6bfce7d0a8292cd8dc611415749a7122e4ef70cd64c6a3e8b58e67e",
       "baseline": "llm_agentic_btu_sonnet_4_6",
       "split": "dev_public",
       "num_entries": 1119,
-      "f1_hallucination": 0.8409250175192712
+      "f1_hallucination": 0.8426183844011143,
+      "split_sha256": "8cfb4a95ccac59624e03b07199368e7a61b124f426b661174757e38eacbde4ea"
     },
     "llm_agentic_btu_sonnet_4_6_test_public.json": {
       "sha256": "0963a85c4f81f985824784389e3b8a890d3d6aabaa992070d42acdb115ad875c",
@@ -153,11 +156,12 @@
       "split_sha256": "8cfb4a95ccac59624e03b07199368e7a61b124f426b661174757e38eacbde4ea"
     },
     "llm_openai_gpt54_dev_public.json": {
-      "sha256": "d5c8708dff2ae44f9c72e25a863d718d1d7bf0e0b5a24833fcdd8b1612424465",
-      "baseline": "llm_openai_gpt-5.4",
+      "sha256": "0ed2bf9b30318ee0057682b0f30d63030b55ca790a209abc4299ebf92f823281",
+      "baseline": "llm_openai_gpt54",
       "split": "dev_public",
       "num_entries": 1119,
-      "f1_hallucination": 0.7828282828282829
+      "f1_hallucination": 0.7786131996658313,
+      "split_sha256": "8cfb4a95ccac59624e03b07199368e7a61b124f426b661174757e38eacbde4ea"
     },
     "llm_openai_gpt54_test_public.json": {
       "sha256": "a30ca82c62b453647d59c6d6900601f60a67e8e1e33cfd1587a2eed7735f88cd",
@@ -176,7 +180,7 @@
       "split_sha256": "e42ef2cbe2b5550768c191f0526d9c75935adda5fd630dba8724e479975907d1"
     },
     "llm_openrouter_claude_opus_4_7_dev_public.json": {
-      "sha256": "b94a8e9f2add1424673a6acf7c6d76e2fabbca73ad102d3c0c7b79dd4ad1a189",
+      "sha256": "d79555c677d92082af869ca58161f3e3e782bda8cc6a3787da4f605eebdeb320",
       "baseline": "llm_openrouter_claude_opus_4_7",
       "split": "dev_public",
       "num_entries": 1119,
@@ -184,7 +188,7 @@
       "split_sha256": "8cfb4a95ccac59624e03b07199368e7a61b124f426b661174757e38eacbde4ea"
     },
     "llm_openrouter_claude_opus_4_7_test_public.json": {
-      "sha256": "5a0e3e57e42dc16973f59827649cab882f27448fb039e1c8a0f438cc709c378c",
+      "sha256": "a30076fa9fed0807dd582b35825f7b71e428ff0d513a9ef171998c2224a1ef29",
       "baseline": "llm_openrouter_claude_opus_4_7",
       "split": "test_public",
       "num_entries": 831,
@@ -192,7 +196,7 @@
       "split_sha256": "e42ef2cbe2b5550768c191f0526d9c75935adda5fd630dba8724e479975907d1"
     },
     "llm_openrouter_claude_sonnet_4_6_dev_public.json": {
-      "sha256": "0ccef301f2b1baa8585441390bdeac53a913d2de2849a589c1014660b95743e5",
+      "sha256": "46375898c4e16006a892490bfc65ea8c928e74357c6ec2eb9375e76493c77dbf",
       "baseline": "llm_openrouter_claude_sonnet_4_6",
       "split": "dev_public",
       "num_entries": 1119,
@@ -200,7 +204,7 @@
       "split_sha256": "8cfb4a95ccac59624e03b07199368e7a61b124f426b661174757e38eacbde4ea"
     },
     "llm_openrouter_claude_sonnet_4_6_test_public.json": {
-      "sha256": "2eddcc9cc6a37e85cbcbbe6ac8af1c68bcde66ca5dbe04b13d39ed296cfee347",
+      "sha256": "de962b9f92ceddcde647d252d4508fea37ed9fd303a53c60bda7a5561837582a",
       "baseline": "llm_openrouter_claude_sonnet_4_6",
       "split": "test_public",
       "num_entries": 831,
@@ -208,11 +212,12 @@
       "split_sha256": "e42ef2cbe2b5550768c191f0526d9c75935adda5fd630dba8724e479975907d1"
     },
     "llm_openrouter_deepseek_r1_dev_public.json": {
-      "sha256": "8759f41352e2bf55e5cf92c883260e9a78ad17116b30a2af2acd021c840b9db3",
+      "sha256": "7ef80f5d9f2304d707bbfd06c845ea4753833456be64ff3d72aed7749bb82a81",
       "baseline": "llm_openrouter_deepseek_r1",
       "split": "dev_public",
       "num_entries": 1119,
-      "f1_hallucination": 0.7387387387387387
+      "f1_hallucination": 0.7382920110192839,
+      "split_sha256": "8cfb4a95ccac59624e03b07199368e7a61b124f426b661174757e38eacbde4ea"
     },
     "llm_openrouter_deepseek_r1_test_public.json": {
       "sha256": "1be5ff175483727ffd35644f394b0fe556dc958acddf0e6a2af95ead9689ab6d",
@@ -222,11 +227,12 @@
       "f1_hallucination": 0.8116646415552855
     },
     "llm_openrouter_deepseek_v3_dev_public.json": {
-      "sha256": "dd488980fa86114c53b796404dcef7e60290759986be652e9615444a41544650",
+      "sha256": "3161c49078c2103aa313367bcc9bc05c56b5df582a0d6068d89498c0e72ea629",
       "baseline": "llm_openrouter_deepseek_v3",
       "split": "dev_public",
       "num_entries": 1119,
-      "f1_hallucination": 0.7272727272727273
+      "f1_hallucination": 0.7229862475442044,
+      "split_sha256": "8cfb4a95ccac59624e03b07199368e7a61b124f426b661174757e38eacbde4ea"
     },
     "llm_openrouter_deepseek_v3_test_public.json": {
       "sha256": "67f12ffeb2fcc28fe6b6fc2154ffadab6f71d89be8520a80f11c71822cf2378f",
@@ -236,11 +242,12 @@
       "f1_hallucination": 0.7760459392945036
     },
     "llm_openrouter_gemini_flash_dev_public.json": {
-      "sha256": "b516570a1044b4adff676d07c7ff7f271f25fa85d42155e49ff102f50f54b5e9",
+      "sha256": "3cbd74d18fcc2f022f00614eb36663a12a877921ccaf85accc7a38e2a92de566",
       "baseline": "llm_openrouter_gemini_flash",
       "split": "dev_public",
       "num_entries": 1119,
-      "f1_hallucination": 0.6306878306878306
+      "f1_hallucination": 0.6247379454926626,
+      "split_sha256": "8cfb4a95ccac59624e03b07199368e7a61b124f426b661174757e38eacbde4ea"
     },
     "llm_openrouter_gemini_flash_test_public.json": {
       "sha256": "92e214dddaf601a17da430d2dbe2d4e4f5fedaa6741f9cdcbadf55c09073ee75",
@@ -280,11 +287,12 @@
       "f1_hallucination": 0.7290969899665551
     },
     "llm_openrouter_mistral_dev_public.json": {
-      "sha256": "0f19865f16bc030c114e78bffa1765b18b510068895dd6729a60483787dbc421",
+      "sha256": "25908a36b324689bdc5029e7b5dd1e5e10ed77384a057d923e64bc96164a6cb8",
       "baseline": "llm_openrouter_mistral",
       "split": "dev_public",
       "num_entries": 1119,
-      "f1_hallucination": 0.7419635099913119
+      "f1_hallucination": 0.736206896551724,
+      "split_sha256": "8cfb4a95ccac59624e03b07199368e7a61b124f426b661174757e38eacbde4ea"
     },
     "llm_openrouter_mistral_test_public.json": {
       "sha256": "2f71622e7f10c85a8c150e70e722c4dbcf67279c6e2070151f5883221ebdf417",
@@ -294,11 +302,12 @@
       "f1_hallucination": 0.7406639004149379
     },
     "llm_openrouter_qwen_dev_public.json": {
-      "sha256": "e55be09851163eb3f07138e2bb73d2961e538065f867ef2dc5acaf747723e30e",
+      "sha256": "6bfa24704261a75b9acf6e86ce4a7014eb68414ca01d05a6f9db01769e3e6189",
       "baseline": "llm_openrouter_qwen",
       "split": "dev_public",
       "num_entries": 1119,
-      "f1_hallucination": 0.7439198855507868
+      "f1_hallucination": 0.7391613361762616,
+      "split_sha256": "8cfb4a95ccac59624e03b07199368e7a61b124f426b661174757e38eacbde4ea"
     },
     "llm_openrouter_qwen_max_dev_public.json": {
       "sha256": "ebf7fd930d55ade9d0226a1f6f902825b394a5ba9f834a8a8af29e0ab5f75e22",

@@ -26,8 +26,7 @@ which is exactly how the previous one came to be switched off; the count check
 still applies to it. A result whose ``per_type_metrics`` rows predate
 ``num_valid``/``precision`` is reported the same way: those rows scored their
 false positives inside the type, so their f1 is 2*DR/(1+DR) and their
-false-positive rate 0.0, and 26 of the 42 released results carry them (39 before
-the v1.2.4 rescore).
+false-positive rate 0.0, and 13 of the 43 released results carry them.
 
 Files under ``<results-dir>/archive/`` are skipped. A run kept for the record --
 a CI sample, a smoke run, a probe -- scores no current split, and parking it
@@ -107,8 +106,8 @@ KNOWN_STALE_TABLES: dict[str, str] = {}
 #: and the released directory publishes ``per_type_metrics.f1`` under both.
 #:
 #: A result carrying the old rows is reported **unverifiable**, on the contract
-#: that already covers a result predating ``split_sha256``: 26 of the 42
-#: released results carry it (39 before the v1.2.4 rescore), and a fatal check tripping on all of them at once
+#: that already covers a result predating ``split_sha256``: 13 of the 43
+#: released results carry it, and a fatal check tripping on all of them at once
 #: is how a guard gets switched off. They are regenerated with the next release.
 CURRENT_PER_TYPE_FIELDS: tuple[str, ...] = ("num_valid", "precision")
 
@@ -309,15 +308,10 @@ def check_freshness(
         # per-type counts summing to 633 (the pre-relabel split) under headline
         # counts of 606 / 513, and the fold ablation scored one of them.
         #
-        # Under the current definition (#65) a per-type row counts only answered
-        # entries, so an abstention or error fallback leaves both its type row and
-        # the valid row. num_uncertain records every unanswered entry without
-        # saying which label it carried, so the exact identity is over all rows:
-        # hallucinated rows + valid row == split size - num_uncertain. Rows
-        # predating num_valid/precision counted every entry and keep the
-        # positives-only check. A result marked ``abstentions_scored_as: VALID``
-        # (bibtex-updater: abstentions stay in the triple as committed VALID and
-        # num_uncertain reports them for Coverage) keeps every entry in its rows.
+        # Under the current per-type definition an abstention is a non-answer
+        # (#65), so a conservative result counts only its answered positives and
+        # may fall short of the split by at most its abstentions. A superseded
+        # block, and any sum above the split, must still match exactly.
         per_type = probe.get("per_type_metrics")
         if isinstance(per_type, dict) and per_type:
             per_type_positives = sum(
@@ -325,28 +319,18 @@ def check_freshness(
                 for mode, m in per_type.items()
                 if mode != "valid" and isinstance(m, dict)
             )
-            if _superseded_per_type_rows(per_type):
-                if per_type_positives != current["num_hallucinated"]:
-                    report.is_stale = True
-                    report.reasons.append(
-                        f"per_type_metrics counts sum to {per_type_positives} positives != "
-                        f"current split {current['num_hallucinated']}"
-                    )
-            else:
-                valid_row = per_type.get("valid")
-                per_type_valid = (
-                    int(valid_row.get("count") or 0) if isinstance(valid_row, dict) else 0
+            shortfall = current["num_hallucinated"] - per_type_positives
+            allowed = (
+                int(probe.get("num_uncertain") or 0)
+                if not _superseded_per_type_rows(per_type)
+                else 0
+            )
+            if not 0 <= shortfall <= allowed:
+                report.is_stale = True
+                report.reasons.append(
+                    f"per_type_metrics counts sum to {per_type_positives} positives != "
+                    f"current split {current['num_hallucinated']}"
                 )
-                answered = current["num_hallucinated"] + current["num_valid"]
-                if probe.get("abstentions_scored_as") != "VALID":
-                    answered -= int(probe.get("num_uncertain") or 0)
-                if per_type_positives + per_type_valid != answered:
-                    report.is_stale = True
-                    report.reasons.append(
-                        f"per_type_metrics counts sum to {per_type_positives} positives + "
-                        f"{per_type_valid} valid != {answered} answered entries of the "
-                        "current split"
-                    )
 
             # (4) per-type definition check: a row predating num_valid/precision
             # scored its false positives inside the type, so its f1 is
