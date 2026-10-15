@@ -1,8 +1,8 @@
 {
-    "version": "1.2.3",
-    "build_date": "2026-05-30",
-    "release_date": "2026-08-31",
-    "release_notes": "v1.2.3 contains two ground-truth corrections. (1) doi_resolves: 110 entries (dev_public 48, test_public 41, test_crossdomain 21) recorded a failed DOI resolution while carrying no `doi` field; the schema reserves False for a check that ran and failed and None for not-applicable, so they now carry None. Only subtests.doi_resolves changed on these entries. (2) type/tier (merged earlier as PR #31, documented here): 4 real_world entries whose source evidence shows no title or author match were retyped from placeholder_authors/fabricated_doi/preprint_as_published (tiers 1-2) to plausible_fabrication (tier 3); their sub-tests already matched the plausible_fabrication truth table. Labels and split membership are unchanged from v1.2.2; tier_distribution/type_distribution below reflect the corrected values. No detection metric is affected by (1); (2) moves 4 of 1246 hallucinated entries across tier buckets. v1.2.2 replaces the remaining 196 stale explanation strings in the raw generation pool llm_generated.jsonl (not part of any released split); every other file is byte-identical to v1.2.1. v1.2.1 replaces 133 stale explanation strings in dev_public/test_public (generation-pipeline re-classifier output that could contradict the released fields); labels, types, tiers, sub-tests, and split membership are byte-identical to v1.2.0. v1.2.0 adds evaluation-only extension artifacts (recency-matched cross-domain split, Walters-Wilder ChatGPT-citation supplement results, canonical 448-entry temporal supplement); core split contents are byte-identical to v1.1.1 (post-relabel).",
+    "version": "1.2.4",
+    "build_date": "2026-10-15",
+    "release_date": "2026-10-15",
+    "release_notes": "v1.2.4 contains two ground-truth corrections. (1) Relabel revert: 18 entries that the May-30 relabel flipped HALLUCINATED -> VALID (dev_public 9, test_public 5, test_hidden 4) are HALLUCINATED again. A recheck against CrossRef, DataCite, DBLP, OpenAlex and OpenReview showed that each cites metadata that does not belong to the paper; the relabel gate had checked only that a DOI resolves (not to which paper), accepted author lists with 75% of surnames real, and took an arXiv-only record as 'venue not refuted'. Each reverted entry is typed by the defect it actually has, not by its pre-relabel type: 8 of the 14 public entries differ from their pre-relabel type, and six of them move from plausible_fabrication (tier 3; the paper does not exist) to a tier-2 type, since every one of these papers exists. All 18 are tier 2 (hybrid_fabrication, swapped_authors, wrong_venue, preprint_as_published); tier 1 and tier 3 counts in dev_public/test_public are unchanged. (2) Truncated fields: 13 entries (dev_public 7, test_public 2, test_hidden 4) had a field cut off at a LaTeX brace during parsing (e.g. an author list ending at R{\\'e); the field is restored from the entry's raw BibTeX. Two labels derived from the cut text are corrected: ViViT (test_public) is retyped swapped_authors -> hybrid_fabrication (its real defect is the DOI), and one test_hidden entry is relabeled HALLUCINATED -> VALID (a fully correct citation). Only the 9 restored public entries change the blind files; the reverts change labels only. Net effect: dev_public 504 valid / 615 hallucinated (was 513/606), test_public 307/524 (was 312/519), test_hidden 207/247 (was 210/244); every reported metric on these splits must be rescored against v1.2.4. v1.2.3 contains two ground-truth corrections. (1) doi_resolves: 110 entries (dev_public 48, test_public 41, test_crossdomain 21) recorded a failed DOI resolution while carrying no `doi` field; the schema reserves False for a check that ran and failed and None for not-applicable, so they now carry None. Only subtests.doi_resolves changed on these entries. (2) type/tier (merged earlier as PR #31, documented here): 4 real_world entries whose source evidence shows no title or author match were retyped from placeholder_authors/fabricated_doi/preprint_as_published (tiers 1-2) to plausible_fabrication (tier 3); their sub-tests already matched the plausible_fabrication truth table. Labels and split membership are unchanged from v1.2.2; tier_distribution/type_distribution below reflect the corrected values. No detection metric is affected by (1); (2) moves 4 of 1246 hallucinated entries across tier buckets. v1.2.2 replaces the remaining 196 stale explanation strings in the raw generation pool llm_generated.jsonl (not part of any released split); every other file is byte-identical to v1.2.1. v1.2.1 replaces 133 stale explanation strings in dev_public/test_public (generation-pipeline re-classifier output that could contradict the released fields); labels, types, tiers, sub-tests, and split membership are byte-identical to v1.2.0. v1.2.0 adds evaluation-only extension artifacts (recency-matched cross-domain split, Walters-Wilder ChatGPT-citation supplement results, canonical 448-entry temporal supplement); core split contents are byte-identical to v1.1.1 (post-relabel).",
     "relabel": {
         "description": "Released corpus is post-relabel: a systematic ground-truth audit corrected entries where real papers were wrongly flagged HALLUCINATED (arXiv-DataCite-DOI root cause and faithful truncated author lists). Split counts below reflect the corrected labels.",
         "script": "scripts/relabel_ground_truth.py",
@@ -10,7 +10,8 @@
             "32fe9d6 (#9): corrected 32 mislabeled entries across dev+test",
             "1475a2f (#10): systematic ground-truth relabel + benchmark hardening"
         ],
-        "flip_log": "results/reviewer_experiments/relabel_flips.json"
+        "flip_log": "results/reviewer_experiments/relabel_flips.json",
+        "v1_2_4_revert": "18 of the May-30 HALLUCINATED -> VALID flips were refuted and reverted in v1.2.4; see relabel_revert."
     },
     "explanation_fix": {
         "description": "Corrected 133 stale [Re-classified] explanation strings (97 HALLUCINATED rewritten against CrossRef/arXiv records, 36 VALID set to the ground-truth audit relabel_reason). Only the explanation field changed.",
@@ -42,17 +43,46 @@
             "test_public": 2
         }
     },
+    "relabel_revert": {
+        "description": "v1.2.4: reverted 18 May-30 relabel flips (VALID -> HALLUCINATED) that a recheck against CrossRef, DataCite, DBLP, OpenAlex and OpenReview refuted. Types follow each entry's actual defect; sub-tests follow EXPECTED_SUBTESTS for the new type. Only labels, types, tiers, sub-tests and explanations changed; cited fields are untouched.",
+        "script": "scripts/revert_relabel_flips.py",
+        "recheck_script": "scripts/recheck_relabel_flips.py",
+        "recheck_logs": [
+            "results/relabel_recheck/recheck_flips_dev_public.json",
+            "results/relabel_recheck/recheck_flips_test_public.json"
+        ],
+        "fix_log": "results/relabel_recheck/revert_log_public.json",
+        "hidden_logs": "kept in the private hallmark-hidden repository",
+        "entries_changed": 18,
+        "by_split": {
+            "dev_public": 9,
+            "test_public": 5,
+            "test_hidden": 4
+        }
+    },
+    "truncated_fields_fix": {
+        "description": "v1.2.4: restored 13 fields cut off at a LaTeX brace during parsing, re-read from the raw BibTeX by brace counting and written only if every name before the cut matches. Deliberate defects in the restored text survive. Two labels derived from the cut text are corrected: ViViT (test_public) swapped_authors -> hybrid_fabrication, one test_hidden entry HALLUCINATED -> VALID.",
+        "script": "scripts/restore_truncated_fields.py",
+        "fix_log": "results/relabel_recheck/restore_log_public.json",
+        "hidden_logs": "kept in the private hallmark-hidden repository",
+        "entries_changed": 13,
+        "by_split": {
+            "dev_public": 7,
+            "test_public": 2,
+            "test_hidden": 4
+        }
+    },
     "seed": 8042,
     "total_entries": 2526,
     "splits": {
         "dev_public": {
             "file": "dev_public.jsonl",
             "total": 1119,
-            "valid": 513,
-            "hallucinated": 606,
+            "valid": 504,
+            "hallucinated": 615,
             "tier_distribution": {
                 "1": 148,
-                "2": 279,
+                "2": 288,
                 "3": 179
             },
             "type_distribution": {
@@ -60,16 +90,16 @@
                 "chimeric_title": 47,
                 "fabricated_doi": 38,
                 "future_date": 30,
-                "hybrid_fabrication": 26,
+                "hybrid_fabrication": 30,
                 "merged_citation": 30,
                 "near_miss_title": 52,
                 "nonexistent_venue": 39,
                 "partial_author_list": 32,
                 "placeholder_authors": 41,
                 "plausible_fabrication": 78,
-                "preprint_as_published": 30,
-                "swapped_authors": 67,
-                "wrong_venue": 47
+                "preprint_as_published": 31,
+                "swapped_authors": 70,
+                "wrong_venue": 48
             },
             "generation_methods": {
                 "adversarial": 60,
@@ -91,27 +121,27 @@
                 "scraped": 287
             },
             "count": 831,
-            "valid": 312,
-            "hallucinated": 519,
+            "valid": 307,
+            "hallucinated": 524,
             "type_distribution": {
                 "arxiv_version_mismatch": 45,
                 "chimeric_title": 23,
                 "fabricated_doi": 29,
                 "future_date": 29,
-                "hybrid_fabrication": 29,
+                "hybrid_fabrication": 32,
                 "merged_citation": 29,
                 "near_miss_title": 40,
                 "nonexistent_venue": 37,
                 "partial_author_list": 31,
                 "placeholder_authors": 33,
                 "plausible_fabrication": 68,
-                "preprint_as_published": 29,
+                "preprint_as_published": 30,
                 "swapped_authors": 63,
-                "wrong_venue": 34
+                "wrong_venue": 35
             },
             "tier_distribution": {
                 "1": 128,
-                "2": 238,
+                "2": 243,
                 "3": 153
             }
         },
@@ -146,8 +176,8 @@
                 "real_world": 28,
                 "scraped": 200
             },
-            "valid": 210,
-            "hallucinated": 244
+            "valid": 207,
+            "hallucinated": 247
         }
     },
     "v1_1_extensions": {

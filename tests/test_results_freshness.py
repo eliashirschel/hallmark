@@ -391,20 +391,69 @@ def test_per_type_counts_that_match_are_fresh(tmp_path):
     assert res.passed and res.stale_files == []
 
 
-@pytest.mark.skipif(not _REAL_RESULTS_DIR.is_dir(), reason="real results dir not present")
-def test_the_two_patched_claude_dev_results_are_caught_and_registered():
-    """Pins the finding: per-type over 633 positives, headline 606, and they are
-    in KNOWN_STALE so the guard stays green without forgetting them."""
-    res = crf.check_freshness(_REAL_RESULTS_DIR, version="v1.2", data_dir=_REAL_DATA_DIR)
-    by_name = {r.result_file: r for r in res.reports}
-    for name in (
-        "llm_openrouter_claude_opus_4_7_dev_public.json",
-        "llm_openrouter_claude_sonnet_4_6_dev_public.json",
-    ):
-        assert by_name[name].is_stale, f"{name} not flagged"
-        assert any("per_type" in reason for reason in by_name[name].reasons)
-        assert name in crf.KNOWN_STALE, f"{name} flagged but not registered"
-    assert res.passed, res.errors
+def _current_per_type(fab: int, venue: int, valid: int) -> dict:
+    """Per-type rows under the current definition (carry num_valid/precision)."""
+    row = {"detection_rate": 0.5, "precision": 0.5, "num_valid": valid}
+    return {
+        "fabricated_doi": {**row, "count": fab},
+        "wrong_venue": {**row, "count": venue},
+        "valid": {"count": valid, "num_valid": 0, "precision": 0.0},
+    }
+
+
+def test_abstentions_leave_the_per_type_rows_and_stay_fresh(tmp_path):
+    """Since #65 an unanswered entry leaves its per-type row, so a tool that
+    abstained on 2 hallucinated and 1 valid entry sums to 8 + 9, not 10 + 10.
+    num_uncertain accounts for all three."""
+    data_dir, _split_file, results_dir = _build_env(tmp_path, n_hall=10, n_valid=10)
+    result_file = results_dir / "mytool_dev_public.json"
+    _write_result(
+        result_file, tool="mytool", split="dev_public", n_entries=20, n_hall=10, n_valid=10
+    )
+    payload = json.loads(result_file.read_text())
+    payload["per_type_metrics"] = _current_per_type(5, 3, 9)
+    payload["num_uncertain"] = 3
+    result_file.write_text(json.dumps(payload))
+    res = crf.check_freshness(results_dir, version="v1.2", data_dir=data_dir)
+    assert res.passed and res.stale_files == [], res.reports[0].reasons
+
+
+@pytest.mark.parametrize(
+    ("fab", "num_uncertain"),
+    [(7, 3), (5, 0)],
+    ids=["per-type sums past the answered entries", "abstentions not recorded"],
+)
+def test_current_per_type_rows_that_miss_the_answered_count_are_stale(tmp_path, fab, num_uncertain):
+    data_dir, _split_file, results_dir = _build_env(tmp_path, n_hall=10, n_valid=10)
+    result_file = results_dir / "mytool_dev_public.json"
+    _write_result(
+        result_file, tool="mytool", split="dev_public", n_entries=20, n_hall=10, n_valid=10
+    )
+    payload = json.loads(result_file.read_text())
+    payload["per_type_metrics"] = _current_per_type(fab, 3, 9)
+    payload["num_uncertain"] = num_uncertain
+    result_file.write_text(json.dumps(payload))
+    res = crf.check_freshness(results_dir, version="v1.2", data_dir=data_dir)
+    assert res.stale_files == ["mytool_dev_public.json"]
+    assert any("answered entries" in r for r in res.reports[0].reasons)
+
+
+@pytest.mark.parametrize(("fab", "stale"), [(7, False), (5, True)])
+def test_abstentions_scored_as_valid_keep_every_entry_in_the_rows(tmp_path, fab, stale):
+    """bibtex-updater keeps its abstentions in the triple as committed VALID and
+    reports them in num_uncertain for Coverage, so its rows hold every entry."""
+    data_dir, _split_file, results_dir = _build_env(tmp_path, n_hall=10, n_valid=10)
+    result_file = results_dir / "mytool_dev_public.json"
+    _write_result(
+        result_file, tool="mytool", split="dev_public", n_entries=20, n_hall=10, n_valid=10
+    )
+    payload = json.loads(result_file.read_text())
+    payload["per_type_metrics"] = _current_per_type(fab, 3, 10)
+    payload["num_uncertain"] = 3
+    payload["abstentions_scored_as"] = "VALID"
+    result_file.write_text(json.dumps(payload))
+    res = crf.check_freshness(results_dir, version="v1.2", data_dir=data_dir)
+    assert (res.stale_files == ["mytool_dev_public.json"]) is stale, res.reports[0].reasons
 
 
 # --- Tests: the superseded per-type definition --------------------------------
@@ -488,6 +537,7 @@ def test_per_type_rows_with_num_valid_are_not_flagged(tmp_path):
                 "count": 4,
                 "num_valid": 10,
             },
+            "valid": {"count": 10, "num_valid": 0, "precision": 0.0},
         },
         split_sha256=crf.compute_sha256(split_file),
     )
@@ -501,10 +551,12 @@ def test_per_type_rows_with_num_valid_are_not_flagged(tmp_path):
 
 @pytest.mark.skipif(not _REAL_RESULTS_DIR.is_dir(), reason="real results dir not present")
 def test_the_released_results_report_the_superseded_definition():
-    """Pins the count: 39 of the 42 released results, reported and not fatal."""
+    """Pins the count: 26 of the 42 released results, reported and not fatal.
+
+    It was 39 until v1.2.4 regenerated 13 of them under the current definition."""
     res = crf.check_freshness(_REAL_RESULTS_DIR, version="v1.2", data_dir=_REAL_DATA_DIR)
     flagged = [r.result_file for r in res.reports if r.superseded_per_type]
-    assert len(flagged) == 39, f"{len(flagged)} of {len(res.reports)} flagged: {flagged[:5]}"
+    assert len(flagged) == 26, f"{len(flagged)} of {len(res.reports)} flagged: {flagged[:5]}"
     assert res.passed, res.errors
 
 

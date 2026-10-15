@@ -26,7 +26,8 @@ which is exactly how the previous one came to be switched off; the count check
 still applies to it. A result whose ``per_type_metrics`` rows predate
 ``num_valid``/``precision`` is reported the same way: those rows scored their
 false positives inside the type, so their f1 is 2*DR/(1+DR) and their
-false-positive rate 0.0, and 39 of the 42 released results carry them.
+false-positive rate 0.0, and 26 of the 42 released results carry them (39 before
+the v1.2.4 rescore).
 
 Files under ``<results-dir>/archive/`` are skipped. A run kept for the record --
 a CI sample, a smoke run, a probe -- scores no current split, and parking it
@@ -84,19 +85,6 @@ DEFAULT_TABLES_DIR = Path("tables")
 #: Ratchet DOWN only: a name leaves this dict when the result is regenerated, and
 #: adding one is a decision to ship a number scored against data that has moved.
 KNOWN_STALE: dict[str, str] = {
-    "llm_openrouter_claude_opus_4_7_dev_public.json": (
-        "per-type counts sum to 633 positives (the pre-relabel dev_public) while the "
-        "headline counts say 606 / 513: the top-level counts were patched, the per-type "
-        "block was not, so the per-type figures describe a different split. The "
-        "taxonomy-fold ablation drops this file because its rebuilt MCC (0.6625) does "
-        "not reproduce the published 0.6828. Needs a re-run under the current labels."
-    ),
-    "llm_openrouter_claude_sonnet_4_6_dev_public.json": (
-        "per-type counts sum to 633 positives (the pre-relabel dev_public) while the "
-        "headline counts say 606 / 513, as for the Opus 4.7 file above. Its rebuilt MCC "
-        "happens to land within the ablation's 0.02 tolerance, so it was scored there "
-        "as if current. Needs a re-run under the current labels."
-    ),
     "harc_with_s2key_dev_public.json": (
         "scored against the pre-relabel ground truth (633 hallucinated / 486 valid "
         "against the current 606 / 513). Full coverage at n=1,119, but its DR 0.209 "
@@ -119,8 +107,8 @@ KNOWN_STALE_TABLES: dict[str, str] = {}
 #: and the released directory publishes ``per_type_metrics.f1`` under both.
 #:
 #: A result carrying the old rows is reported **unverifiable**, on the contract
-#: that already covers a result predating ``split_sha256``: 39 of the 42
-#: released results carry it, and a fatal check tripping on all of them at once
+#: that already covers a result predating ``split_sha256``: 26 of the 42
+#: released results carry it (39 before the v1.2.4 rescore), and a fatal check tripping on all of them at once
 #: is how a guard gets switched off. They are regenerated with the next release.
 CURRENT_PER_TYPE_FIELDS: tuple[str, ...] = ("num_valid", "precision")
 
@@ -320,6 +308,16 @@ def check_freshness(
         # describe a different split. Two released dev_public results carried
         # per-type counts summing to 633 (the pre-relabel split) under headline
         # counts of 606 / 513, and the fold ablation scored one of them.
+        #
+        # Under the current definition (#65) a per-type row counts only answered
+        # entries, so an abstention or error fallback leaves both its type row and
+        # the valid row. num_uncertain records every unanswered entry without
+        # saying which label it carried, so the exact identity is over all rows:
+        # hallucinated rows + valid row == split size - num_uncertain. Rows
+        # predating num_valid/precision counted every entry and keep the
+        # positives-only check. A result marked ``abstentions_scored_as: VALID``
+        # (bibtex-updater: abstentions stay in the triple as committed VALID and
+        # num_uncertain reports them for Coverage) keeps every entry in its rows.
         per_type = probe.get("per_type_metrics")
         if isinstance(per_type, dict) and per_type:
             per_type_positives = sum(
@@ -327,12 +325,28 @@ def check_freshness(
                 for mode, m in per_type.items()
                 if mode != "valid" and isinstance(m, dict)
             )
-            if per_type_positives != current["num_hallucinated"]:
-                report.is_stale = True
-                report.reasons.append(
-                    f"per_type_metrics counts sum to {per_type_positives} positives != "
-                    f"current split {current['num_hallucinated']}"
+            if _superseded_per_type_rows(per_type):
+                if per_type_positives != current["num_hallucinated"]:
+                    report.is_stale = True
+                    report.reasons.append(
+                        f"per_type_metrics counts sum to {per_type_positives} positives != "
+                        f"current split {current['num_hallucinated']}"
+                    )
+            else:
+                valid_row = per_type.get("valid")
+                per_type_valid = (
+                    int(valid_row.get("count") or 0) if isinstance(valid_row, dict) else 0
                 )
+                answered = current["num_hallucinated"] + current["num_valid"]
+                if probe.get("abstentions_scored_as") != "VALID":
+                    answered -= int(probe.get("num_uncertain") or 0)
+                if per_type_positives + per_type_valid != answered:
+                    report.is_stale = True
+                    report.reasons.append(
+                        f"per_type_metrics counts sum to {per_type_positives} positives + "
+                        f"{per_type_valid} valid != {answered} answered entries of the "
+                        "current split"
+                    )
 
             # (4) per-type definition check: a row predating num_valid/precision
             # scored its false positives inside the type, so its f1 is

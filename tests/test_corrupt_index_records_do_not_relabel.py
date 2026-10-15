@@ -20,13 +20,14 @@ record rather than by a bad citation. On a corpus of 5,043 real references the
 signature came from corruption three times for every one genuine citation error.
 
 **The risk is live, not theoretical.** ``data/v1.2/dev_public.jsonl`` contains
-``db9d82ff3f94``, the real Constitutional AI paper, correctly labelled VALID. A
+``db9d82ff3f94``, the real Constitutional AI paper under its real title (it is
+HALLUCINATED, but for its venue: it cites ICLR 2023 for an arXiv-only preprint). A
 relabelling pass that queries OpenAlex for its DOI — ``relabel_ground_truth.py``
 does exactly this kind of resolution — would receive the wrong title with the
-right authors and could reasonably conclude the entry is a hybrid fabrication,
-converting a correct VALID entry into a false accusation. Nothing else would
-notice: the DOI resolves, the authors match, and the title disagreement is the
-whole basis of the type.
+right authors and could reasonably conclude the entry is a hybrid fabrication, an
+accusation the citation does not deserve. Nothing else would notice: the DOI
+resolves, the authors match, and the title disagreement is the whole basis of the
+type.
 
 It is also a shape synthetic perturbation cannot generate. The benchmark's own
 generators build hybrid fabrications by corrupting metadata deliberately; an
@@ -135,12 +136,28 @@ def test_a_correctly_cited_work_is_not_flagged_as_hybrid_fabrication():
     assert not offenders, "\n  ".join(offenders)
 
 
-def test_the_known_constitutional_ai_entry_is_still_valid():
-    """Pins the one live instance so a relabel cannot flip it silently.
+#: Types whose evidence is a title or DOI-target mismatch: the verdicts the corrupt
+#: OpenAlex record would manufacture.
+_TITLE_DERIVED_TYPES = {
+    "hybrid_fabrication",
+    "chimeric_title",
+    "near_miss_title",
+    "plausible_fabrication",
+}
+
+
+def test_the_known_constitutional_ai_entry_is_not_convicted_on_its_title():
+    """Pins the one live instance so a relabel cannot flip it on the corrupt title.
 
     ``dev_public`` carries the real Constitutional AI paper. Its OpenAlex record
     serves the right authors under the wrong title, which is the exact input that
     would make a resolver conclude the citation is fabricated.
+
+    The entry is not a correct citation, though: it cites ICLR 2023, and the paper
+    is an arXiv preprint only (DBLP ``journals/corr/abs-2212-08073``; OpenReview has
+    no ICLR submission). ``relabel-recheck-2026-10-13`` labels it
+    ``preprint_as_published`` on that venue evidence. What must never happen is a
+    title-derived verdict, so that is what this pins.
     """
     matches = [
         entry
@@ -150,13 +167,12 @@ def test_the_known_constitutional_ai_entry_is_still_valid():
     if not matches:
         pytest.skip("Constitutional AI entry not present in the available splits")
     for entry in matches:
-        assert entry.get("label") == "VALID", (
-            f"{entry.get('bibtex_key')} is a correct citation of a real paper and must "
-            f"stay VALID; it is now {entry.get('label')} "
-            f"({entry.get('hallucination_type')}). OpenAlex serves this DOI under the "
-            "title 'Affective Coherence Monitoring for Transformer-Based Language "
-            "Models' with the right author list — if a relabelling pass trusted that, "
-            "this is what the damage looks like."
+        assert entry.get("hallucination_type") not in _TITLE_DERIVED_TYPES, (
+            f"{entry.get('bibtex_key')} cites the real Constitutional AI paper under its "
+            f"real title, but is now {entry.get('label')} ({entry.get('hallucination_type')}). "
+            "OpenAlex serves this DOI under the title 'Affective Coherence Monitoring for "
+            "Transformer-Based Language Models' with the right author list — if a "
+            "relabelling pass trusted that, this is what the damage looks like."
         )
 
 

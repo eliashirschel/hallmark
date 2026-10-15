@@ -75,9 +75,9 @@ def test_the_triple_still_uses_the_committed_convention():
     if not path.is_file():
         pytest.skip("released result not present")
     result = json.loads(path.read_text())
-    assert result["detection_rate"] == pytest.approx(0.8647, abs=5e-4)
-    assert result["false_positive_rate"] == pytest.approx(0.0916, abs=5e-4)
-    assert result["f1_hallucination"] == pytest.approx(0.8904, abs=5e-4)
+    assert result["detection_rate"] == pytest.approx(0.8634, abs=5e-4)
+    assert result["false_positive_rate"] == pytest.approx(0.0794, abs=5e-4)
+    assert result["f1_hallucination"] == pytest.approx(0.8954, abs=5e-4)
 
 
 @pytest.mark.parametrize("split", sorted(EXPECTED_ABSTENTIONS))
