@@ -1,0 +1,188 @@
+{
+  "dev_public": [
+    {
+      "bibtex_key": "d0f7f9c72c33",
+      "before": {
+        "label": "VALID",
+        "hallucination_type": null,
+        "relabel_reason": "FULLY-CORRECT citation: title exact, authors faithful (verdict=faithful, subset=1.0, truncated=False), venue not refuted, year_delta=0 via openalex (https://openalex.org/W3186630079). (fix b/c)"
+      },
+      "after": {
+        "label": "HALLUCINATED",
+        "hallucination_type": "hybrid_fabrication",
+        "difficulty_tier": 2
+      }
+    },
+    {
+      "bibtex_key": "f802800935ef",
+      "before": {
+        "label": "VALID",
+        "hallucination_type": null,
+        "relabel_reason": "FULLY-CORRECT citation: title exact, authors faithful (verdict=faithful, subset=1.0, truncated=False), venue not refuted, year_delta=0 via openalex (https://openalex.org/W4386071707). (fix b/c)"
+      },
+      "after": {
+        "label": "HALLUCINATED",
+        "hallucination_type": "hybrid_fabrication",
+        "difficulty_tier": 2
+      }
+    },
+    {
+      "bibtex_key": "c65faf378a95",
+      "before": {
+        "label": "VALID",
+        "hallucination_type": null,
+        "relabel_reason": "FULLY-CORRECT citation: title exact, authors faithful (verdict=faithful, subset=0.8, truncated=True), venue not refuted, year_delta=0 via datacite (10.48550/arxiv.2205.01068). (fix b/c)"
+      },
+      "after": {
+        "label": "HALLUCINATED",
+        "hallucination_type": "swapped_authors",
+        "difficulty_tier": 2
+      }
+    },
+    {
+      "bibtex_key": "b939e55d7555",
+      "before": {
+        "label": "VALID",
+        "hallucination_type": null,
+        "relabel_reason": "FULLY-CORRECT citation: title exact, authors faithful (verdict=faithful, subset=1.0, truncated=True), venue not refuted, year_delta=0 via datacite (10.48550/arxiv.2204.02311). (fix b/c)"
+      },
+      "after": {
+        "label": "HALLUCINATED",
+        "hallucination_type": "wrong_venue",
+        "difficulty_tier": 2
+      }
+    },
+    {
+      "bibtex_key": "a24129d1c5e5",
+      "before": {
+        "label": "VALID",
+        "hallucination_type": null,
+        "relabel_reason": "FULLY-CORRECT citation: title exact, authors faithful (verdict=faithful, subset=0.7895, truncated=False), venue not refuted, year_delta=0 via datacite (10.48550/arxiv.2204.14198). (fix b/c)"
+      },
+      "after": {
+        "label": "HALLUCINATED",
+        "hallucination_type": "swapped_authors",
+        "difficulty_tier": 2
+      }
+    },
+    {
+      "bibtex_key": "e9e08922a057",
+      "before": {
+        "label": "VALID",
+        "hallucination_type": null,
+        "relabel_reason": "FULLY-CORRECT citation: title exact, authors faithful (verdict=faithful, subset=0.9206, truncated=False), venue not refuted, year_delta=0 via datacite (10.48550/arxiv.2204.02311). (fix b/c)"
+      },
+      "after": {
+        "label": "HALLUCINATED",
+        "hallucination_type": "swapped_authors",
+        "difficulty_tier": 2
+      }
+    },
+    {
+      "bibtex_key": "db9d82ff3f94",
+      "before": {
+        "label": "VALID",
+        "hallucination_type": null,
+        "relabel_reason": "FULLY-CORRECT citation: title exact, authors faithful (verdict=faithful, subset=1.0, truncated=True), venue not refuted, year_delta=1 via datacite (10.48550/arxiv.2212.08073). (fix b/c)"
+      },
+      "after": {
+        "label": "HALLUCINATED",
+        "hallucination_type": "preprint_as_published",
+        "difficulty_tier": 2
+      }
+    },
+    {
+      "bibtex_key": "ff2931c3228f",
+      "before": {
+        "label": "VALID",
+        "hallucination_type": null,
+        "relabel_reason": "FULLY-CORRECT citation: title exact, authors faithful (verdict=faithful, subset=1.0, truncated=False), venue not refuted, year_delta=0 via openalex (https://openalex.org/W3145450063). (fix b/c)"
+      },
+      "after": {
+        "label": "HALLUCINATED",
+        "hallucination_type": "hybrid_fabrication",
+        "difficulty_tier": 2
+      }
+    },
+    {
+      "bibtex_key": "ded9f5844e90",
+      "before": {
+        "label": "VALID",
+        "hallucination_type": null,
+        "relabel_reason": "FULLY-CORRECT citation: title exact, authors faithful (verdict=faithful, subset=1.0, truncated=False), venue not refuted, year_delta=0 via arxiv (2203.09517v2). (fix b/c)"
+      },
+      "after": {
+        "label": "HALLUCINATED",
+        "hallucination_type": "hybrid_fabrication",
+        "difficulty_tier": 2
+      }
+    }
+  ],
+  "test_public": [
+    {
+      "bibtex_key": "eae03804fd48",
+      "before": {
+        "label": "VALID",
+        "hallucination_type": null,
+        "relabel_reason": "FULLY-CORRECT citation: title exact, authors faithful (verdict=faithful, subset=1.0, truncated=False), venue not refuted, year_delta=0 via arxiv (2103.13415v3). (fix b/c)"
+      },
+      "after": {
+        "label": "HALLUCINATED",
+        "hallucination_type": "hybrid_fabrication",
+        "difficulty_tier": 2
+      }
+    },
+    {
+      "bibtex_key": "c3e070166df2",
+      "before": {
+        "label": "VALID",
+        "hallucination_type": null,
+        "relabel_reason": "FULLY-CORRECT citation: title exact, authors faithful (verdict=faithful, subset=1.0, truncated=True), venue not refuted, year_delta=0 via datacite (10.48550/arxiv.2302.13971). (fix b/c)"
+      },
+      "after": {
+        "label": "HALLUCINATED",
+        "hallucination_type": "preprint_as_published",
+        "difficulty_tier": 2
+      }
+    },
+    {
+      "bibtex_key": "e8e1379d3939",
+      "before": {
+        "label": "VALID",
+        "hallucination_type": null,
+        "relabel_reason": "FULLY-CORRECT citation: title exact, authors faithful (verdict=faithful, subset=1.0, truncated=False), venue not refuted, year_delta=1 via arxiv (2111.06377v3). (fix b/c)"
+      },
+      "after": {
+        "label": "HALLUCINATED",
+        "hallucination_type": "hybrid_fabrication",
+        "difficulty_tier": 2
+      }
+    },
+    {
+      "bibtex_key": "e7e5083fa94f",
+      "before": {
+        "label": "VALID",
+        "hallucination_type": null,
+        "relabel_reason": "FULLY-CORRECT citation: title exact, authors faithful (verdict=faithful, subset=1.0, truncated=False), venue not refuted, year_delta=0 via datacite (10.48550/arxiv.2304.10592). (fix b/c)"
+      },
+      "after": {
+        "label": "HALLUCINATED",
+        "hallucination_type": "wrong_venue",
+        "difficulty_tier": 2
+      }
+    },
+    {
+      "bibtex_key": "d87ce678eb11",
+      "before": {
+        "label": "VALID",
+        "hallucination_type": null,
+        "relabel_reason": "FULLY-CORRECT citation: title exact, authors faithful (verdict=faithful, subset=0.8857, truncated=False), venue not refuted, year_delta=0 via datacite (10.48550/arxiv.2307.09288). (fix b/c)"
+      },
+      "after": {
+        "label": "HALLUCINATED",
+        "hallucination_type": "swapped_authors",
+        "difficulty_tier": 2
+      }
+    }
+  ]
+}

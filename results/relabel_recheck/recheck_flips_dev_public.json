@@ -1,0 +1,250 @@
+[
+  {
+    "bibtex_key": "d0f7f9c72c33",
+    "title": "IBRNet: Learning Multi-View Image-Based Rendering",
+    "current_label": "VALID",
+    "recheck_verdict": "HALLUCINATED",
+    "checks": {
+      "doi": {
+        "status": "error",
+        "detail": "10.1109/CVPR46437.2021.00469 belongs to 'Delving into Localization Errors for Monocular 3D Object Detection' (crossref, sim=0.14)"
+      },
+      "authors": {
+        "status": "ok",
+        "detail": "9 cited, all on the paper (9 total)"
+      },
+      "venue": {
+        "status": "ok",
+        "detail": "'CVPR' confirmed by CVPR, IEEE Computer Society Conference on Computer Vision and Pattern Recognition/Proceedings - IEEE Computer Society Conference on Computer Vision and Pattern Recognition/Proceedings"
+      }
+    },
+    "records": [
+      "dblp:conf/cvpr/WangWGSZBMSF21",
+      "dblp:journals/corr/abs-2102-13090",
+      "openalex:W3186630079",
+      "openalex:W3131986035"
+    ]
+  },
+  {
+    "bibtex_key": "f802800935ef",
+    "title": "ImageBind: One Embedding Space To Bind Them All",
+    "current_label": "VALID",
+    "recheck_verdict": "HALLUCINATED",
+    "checks": {
+      "doi": {
+        "status": "error",
+        "detail": "10.1109/CVPR52729.2023.02141 belongs to 'Spatial-Frequency Mutual Learning for Face Super-Resolution' (crossref, sim=0.34)"
+      },
+      "authors": {
+        "status": "ok",
+        "detail": "7 cited, all on the paper (7 total)"
+      },
+      "venue": {
+        "status": "ok",
+        "detail": "'CVPR' confirmed by CVPR, IEEE Computer Society Conference on Computer Vision and Pattern Recognition/Proceedings - IEEE Computer Society Conference on Computer Vision and Pattern Recognition/Proceedings"
+      }
+    },
+    "records": [
+      "dblp:conf/cvpr/GirdharELSAJM23",
+      "dblp:journals/corr/abs-2305-05665",
+      "openalex:W4386071707",
+      "openalex:W4376864533"
+    ]
+  },
+  {
+    "bibtex_key": "c65faf378a95",
+    "title": "OPT: Open Pre-trained Transformer Language Models",
+    "current_label": "VALID",
+    "recheck_verdict": "HALLUCINATED",
+    "checks": {
+      "doi": {
+        "status": "ok",
+        "detail": "10.48550/arXiv.2205.01068 is this paper (datacite)"
+      },
+      "authors": {
+        "status": "error",
+        "detail": "3 of 10 cited not on the paper: Mona Dewan, Emily Dinan, Zhiguo Du"
+      },
+      "venue": {
+        "status": "unconfirmed",
+        "detail": "cites 'ACL', but every record is a preprint (CoRR)"
+      }
+    },
+    "records": [
+      "dblp:journals/corr/abs-2205-01068"
+    ]
+  },
+  {
+    "bibtex_key": "b939e55d7555",
+    "title": "PaLM: Scaling Language Modeling with Pathways",
+    "current_label": "VALID",
+    "recheck_verdict": "HALLUCINATED",
+    "checks": {
+      "doi": {
+        "status": "ok",
+        "detail": "10.48550/arXiv.2204.02311 is this paper (datacite)"
+      },
+      "authors": {
+        "status": "ok",
+        "detail": "10 cited, all on the paper (67 total)"
+      },
+      "venue": {
+        "status": "error",
+        "detail": "cites 'ICML', published at J. Mach. Learn. Res."
+      }
+    },
+    "records": [
+      "dblp:journals/jmlr/ChowdheryNDBMRBCSGSSTMRBTSPRDHPBAI23",
+      "dblp:journals/corr/abs-2204-02311",
+      "openalex:W4224308101"
+    ]
+  },
+  {
+    "bibtex_key": "a24129d1c5e5",
+    "title": "Flamingo: a Visual Language Model for Few-Shot Learning",
+    "current_label": "VALID",
+    "recheck_verdict": "HALLUCINATED",
+    "checks": {
+      "doi": {
+        "status": "ok",
+        "detail": "10.48550/arXiv.2204.14198 is this paper (datacite)"
+      },
+      "authors": {
+        "status": "error",
+        "detail": "4 of 19 cited not on the paper: Skanda Koppula, Michal Valko, Ludovic Denoyer, Jo{\\~a}o Carreira"
+      },
+      "venue": {
+        "status": "ok",
+        "detail": "'NeurIPS' confirmed by NeurIPS, Zenodo (CERN European Organization for Nuclear Research)"
+      }
+    },
+    "records": [
+      "dblp:conf/nips/AlayracDLMBHLMM22",
+      "dblp:journals/corr/abs-2204-14198",
+      "openalex:W4225323055"
+    ]
+  },
+  {
+    "bibtex_key": "e9e08922a057",
+    "title": "{PaLM}: Scaling Language Modeling with Pathways",
+    "current_label": "VALID",
+    "recheck_verdict": "HALLUCINATED",
+    "checks": {
+      "doi": {
+        "status": "ok",
+        "detail": "10.48550/arXiv.2204.02311 is this paper (datacite)"
+      },
+      "authors": {
+        "status": "error",
+        "detail": "7 of 63 cited not on the paper: Nitish Shirish Keskar Rao, Armand Joulin, Arman Cohan, Yiming Wang, Mostafa Dehghani, Yonghui Wu, Ed Chi; listed twice: Noam Shazeer"
+      },
+      "venue": {
+        "status": "error",
+        "detail": "cites 'ICML', published at J. Mach. Learn. Res."
+      }
+    },
+    "records": [
+      "dblp:journals/jmlr/ChowdheryNDBMRBCSGSSTMRBTSPRDHPBAI23",
+      "dblp:journals/corr/abs-2204-02311",
+      "openalex:W4224308101"
+    ]
+  },
+  {
+    "bibtex_key": "db9d82ff3f94",
+    "title": "Constitutional {AI}: Harmlessness from {AI} Feedback",
+    "current_label": "VALID",
+    "recheck_verdict": "CHECK_BY_HAND",
+    "checks": {
+      "doi": {
+        "status": "ok",
+        "detail": "10.48550/arXiv.2212.08073 is this paper (datacite)"
+      },
+      "authors": {
+        "status": "ok",
+        "detail": "10 cited, all on the paper (51 total)"
+      },
+      "venue": {
+        "status": "unconfirmed",
+        "detail": "cites 'ICLR', but every record is a preprint (CoRR)"
+      }
+    },
+    "records": [
+      "dblp:journals/corr/abs-2212-08073"
+    ]
+  },
+  {
+    "bibtex_key": "ff2931c3228f",
+    "title": "An Empirical Study of Training Self-Supervised Vision Transformers",
+    "current_label": "VALID",
+    "recheck_verdict": "HALLUCINATED",
+    "checks": {
+      "doi": {
+        "status": "error",
+        "detail": "10.1109/ICCV48922.2021.00952 belongs to 'Do Image Classifiers Generalize Across Time?' (crossref, sim=0.26)"
+      },
+      "authors": {
+        "status": "ok",
+        "detail": "3 cited, all on the paper (3 total)"
+      },
+      "venue": {
+        "status": "ok",
+        "detail": "'ICCV' confirmed by ICCV, IEEE/CVF International Conference on Computer Vision (ICCV)"
+      }
+    },
+    "records": [
+      "dblp:conf/iccv/ChenXH21",
+      "dblp:journals/corr/abs-2104-02057",
+      "openalex:W3145450063",
+      "openalex:W3204619080"
+    ]
+  },
+  {
+    "bibtex_key": "dae1eb71d49a",
+    "title": "Highly accurate protein structure prediction with {AlphaFold",
+    "current_label": "VALID",
+    "recheck_verdict": "HALLUCINATED",
+    "checks": {
+      "doi": {
+        "status": "ok",
+        "detail": "10.1038/s41586-021-03819-2 is this paper (crossref)"
+      },
+      "authors": {
+        "status": "error",
+        "detail": "1 of 9 cited not on the paper: {\\v{Z"
+      },
+      "venue": {
+        "status": "ok",
+        "detail": "'Nature' confirmed by FAIRsharing.org, Nature, PubMed, PubMed Central, RePEc: Research Papers in Economics, Seoul National University Open Repository (Seoul National University)"
+      }
+    },
+    "records": [
+      "openalex:W3177828909"
+    ]
+  },
+  {
+    "bibtex_key": "ded9f5844e90",
+    "title": "TensoRF: Tensorial Radiance Fields",
+    "current_label": "VALID",
+    "recheck_verdict": "HALLUCINATED",
+    "checks": {
+      "doi": {
+        "status": "error",
+        "detail": "10.1007/978-3-031-19830-4_20 belongs to 'ESS: Learning Event-Based Semantic Segmentation from Still Images' (crossref, sim=0.27)"
+      },
+      "authors": {
+        "status": "ok",
+        "detail": "5 cited, all on the paper (5 total)"
+      },
+      "venue": {
+        "status": "ok",
+        "detail": "'ECCV' confirmed by ECCV (32), Lecture notes in computer science"
+      }
+    },
+    "records": [
+      "dblp:conf/eccv/ChenXGYS22",
+      "dblp:journals/corr/abs-2203-09517",
+      "openalex:W4312234520",
+      "openalex:W4225664762"
+    ]
+  }
+]

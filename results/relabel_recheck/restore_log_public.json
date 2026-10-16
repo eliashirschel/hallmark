@@ -1,0 +1,143 @@
+{
+  "dev_public": [
+    {
+      "bibtex_key": "c080618bff76",
+      "fields": {
+        "author": {
+          "before": "Dario Amodei and Chris Olah and Jacob Steinhardt and Paul Christiano and John Schulman and Man{\\'e",
+          "after": "Dario Amodei and Chris Olah and Jacob Steinhardt and Paul Christiano and John Schulman and Dan Man{\\'e}"
+        }
+      },
+      "record": {}
+    },
+    {
+      "bibtex_key": "e7b8d9a1670b",
+      "fields": {
+        "author": {
+          "before": "Andrew Hard and Kanishka Rao and Rajiv Mathews and Swaroop Ramaswamy and Fran{\\c{c Beaufays",
+          "after": "Andrew Hard and Kanishka Rao and Rajiv Mathews and Swaroop Ramaswamy and Fran{\\c{c}}oise Beaufays and Sean Augenstein and Hubert Eichner and Chlo{\\'e} Kiddon and Daniel Ramage"
+        }
+      },
+      "record": {}
+    },
+    {
+      "bibtex_key": "c74be625b875",
+      "fields": {
+        "title": {
+          "before": "Sparks of Artificial General Intelligence: Early Experiments with {GPT-4",
+          "after": "Sparks of Artificial General Intelligence: Early Experiments with {GPT-4}"
+        }
+      },
+      "record": {}
+    },
+    {
+      "bibtex_key": "a687f76f3a21",
+      "fields": {
+        "title": {
+          "before": "${{\\mathrm {Latent",
+          "after": "${{\\mathrm {Latent}}Out}$: an unsupervised deep anomaly detection approach exploiting latent space distribution."
+        }
+      },
+      "record": {}
+    },
+    {
+      "bibtex_key": "dae1eb71d49a",
+      "fields": {
+        "title": {
+          "before": "Highly accurate protein structure prediction with {AlphaFold",
+          "after": "Highly accurate protein structure prediction with {AlphaFold}"
+        },
+        "author": {
+          "before": "John Jumper and Richard Evans and Alexander Pritzel and Tim Green and Michael Figurnov and Olaf Ronneberger and Kathryn Tunyasuvunakool and Russ Bates and {\\v{Z",
+          "after": "John Jumper and Richard Evans and Alexander Pritzel and Tim Green and Michael Figurnov and Olaf Ronneberger and Kathryn Tunyasuvunakool and Russ Bates and Augustin {\\v{Z}}{\\'\\i}dek and Anna Potapenko and Alex Bridgland and Clemens Meyer and Simon A. A. Kohl and Andrew J. Ballard and Andrew Cowie and Bernardino Romera-Paredes and Stanislav Nikolov and Rishub Jain and Jonas Adler and Trevor Back and Stig Petersen and David Reiman and Ellen Clancy and Michal Zielinski and Martin Steinegger and Michalina Pacholska and Tamas Berghammer and Sebastian Bodenstein and David Silver and Oriol Vinyals and Andrew W. Senior and Koray Kavukcuoglu and Pushmeet Kohli and Demis Hassabis"
+        }
+      },
+      "record": {}
+    },
+    {
+      "bibtex_key": "aaefe29933ae",
+      "fields": {
+        "author": {
+          "before": "Tri Dao and Daniel Fu and Stefano Ermon and Atri Rudra and R{\\'e",
+          "after": "Tri Dao and Daniel Fu and Stefano Ermon and Atri Rudra and Christopher R{\\'e}"
+        }
+      },
+      "record": {}
+    },
+    {
+      "bibtex_key": "fdcf8e3071b7",
+      "fields": {
+        "author": {
+          "before": "Jean-Bastien Grill and Florian Strub and Altch{\\'e",
+          "after": "Jean-Bastien Grill and Florian Strub and Florent Altch{\\'e} and Corentin Tallec and Pierre H. Richemond and Elena Buchatskaya and Carl Doersch and Bernardo Avila Pires and Zhaohan Daniel Guo and Mohammad Gheshlaghi Azar and Bilal Piot and Koray Kavukcuoglu and R{\\'e}mi Munos and Michal Valko"
+        }
+      },
+      "record": {}
+    }
+  ],
+  "test_public": [
+    {
+      "bibtex_key": "f746e1c10ae9",
+      "fields": {
+        "author": {
+          "before": "Sashank Reddi and Zachary Charles and Manzil Zaheer and Zachary Garrett and Keith Rush and Kone{\\v{c",
+          "after": "Sashank Reddi and Zachary Charles and Manzil Zaheer and Zachary Garrett and Keith Rush and Jakub Kone{\\v{c}}n{\\`y} and Sanjiv Kumar and H. Brendan McMahan"
+        }
+      },
+      "record": {}
+    },
+    {
+      "bibtex_key": "e65a9f529e01",
+      "fields": {
+        "author": {
+          "before": "Anurag Arnab and Mostafa Dehghani and Georg Heigold and Chen Sun and Mario Lu{\\v{c",
+          "after": "Anurag Arnab and Mostafa Dehghani and Georg Heigold and Chen Sun and Mario Lu{\\v{c}}i{\\'c} and Cordelia Schmid"
+        }
+      },
+      "record": {
+        "label": {
+          "before": "HALLUCINATED",
+          "after": "HALLUCINATED"
+        },
+        "hallucination_type": {
+          "before": "swapped_authors",
+          "after": "hybrid_fabrication"
+        },
+        "difficulty_tier": {
+          "before": 2,
+          "after": 2
+        },
+        "subtests": {
+          "before": {
+            "doi_resolves": true,
+            "title_exists": true,
+            "authors_match": false,
+            "venue_correct": true,
+            "fields_complete": true,
+            "cross_db_agreement": false
+          },
+          "after": {
+            "doi_resolves": true,
+            "title_exists": false,
+            "authors_match": false,
+            "venue_correct": true,
+            "fields_complete": true,
+            "cross_db_agreement": false
+          }
+        },
+        "explanation": {
+          "before": "LLM-generated via openai(gpt-5.1). Prompt: 'Bibliography on vision transformers'. Verification: Authors don't match CrossRef: 'Anurag Arnab and Mostafa Dehghani and Georg Heigold and Chen Sun and Mario Lu{\\v{c' vs 'Anurag Arnab and Mostafa Dehghani and Georg Heigold and Chen Sun and Mario Lucic and Cordelia Schmid'",
+          "after": "Real paper (ViViT, ICCV 2021) with its correct authors, but the cited DOI 10.1109/ICCV48922.2021.00678 belongs to 'Learning to Cut by Watching Movies'."
+        },
+        "relabeled_from": {
+          "before": "HALLUCINATED",
+          "after": "HALLUCINATED"
+        },
+        "relabel_reason": {
+          "before": "Same paper (title exact) but authors differ (verdict=different, subset=0.8, prefix=0.8): entry='Anurag Arnab and Mostafa Dehghani and Georg Heigol' vs real=['Anurag Arnab', 'Mostafa Dehghani', 'Georg Heigold', 'Chen Sun'] via arxiv.",
+          "after": "Retyped swapped_authors -> hybrid_fabrication: swapped_authors came from comparing an author list cut off at 'Lu{\\v{c' with CrossRef; the full list is correct, and the DOI is another paper's (CrossRef)."
+        }
+      }
+    }
+  ]
+}

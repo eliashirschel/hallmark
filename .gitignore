@@ -44,6 +44,7 @@ Thumbs.db
 
 # Hidden test data (served via API, not in public repo)
 data/hidden/
+data/*/hidden/
 
 # Claude Code / claude-mem
 .claude/
@@ -128,3 +129,6 @@ results/**/stage2/
 # GEPA prompt-optimization run artifacts (logs hold raw prompts; run/ holds pickles)
 results/gepa_haiku/**/logs/
 results/gepa_haiku/**/run/
+
+# Recheck HTTP cache (also holds test_hidden lookups)
+results/relabel_recheck/http_cache.json
